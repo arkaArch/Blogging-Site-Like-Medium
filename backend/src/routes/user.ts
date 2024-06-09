@@ -46,9 +46,13 @@ app.post("/signin", async (c) => {
     const { email, password } = await c.req.json();
 
     try {
-        const user = await prisma.user.findFirst({ where: { email, password } });
+        const user = await prisma.user.findUnique({ where: { email } });
         
         if (!user) {
+            return c.json({ msg: "Invalid credentials" }, 403);
+        }
+
+        if(password !== user.password) {
             return c.json({ msg: "Invalid credentials" }, 403);
         }
 
