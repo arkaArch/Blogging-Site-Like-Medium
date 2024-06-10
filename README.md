@@ -74,7 +74,8 @@ To begin with, our backend will have 6 routes
 1. Hono let’s you group routes together so you can have a cleaner file structure.
 2. Create two new files inside `/src/routes` named  
 `user.ts` and `blog.ts`. Move the all the user logic to `user.ts` and blog logic(middleware also) to `blog.ts`. Import them to `index.ts`.
-3. Create all the route logic in `blog.ts`. Make sure first write logic for `/bulk` and then `/:id`, else the get request for `bulk` is misinterpreted as an `id`.x
+3. Create all the route logic in `blog.ts`. Make sure first write logic for `/bulk` and then `/:id`, else the get request for `bulk` is misinterpreted as an `id`.
+4. `/:id` is passed as url `localhost:8787/api/v1/blog/clx8nxuq1876111n673k1c4rz`
 
 <br />
 
