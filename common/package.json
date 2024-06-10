@@ -1,0 +1,14 @@
+{
+  "name": "@arka1313/blog-common",
+  "version": "1.0.1",
+  "main": "dist/index.js",
+  "scripts": {
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "zod": "^3.23.8"
+  }
+}

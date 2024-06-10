@@ -106,12 +106,12 @@ To begin with, our backend will have 6 routes
     * `touch src/index.ts`
     * `npm i zod`
 
-7. Write the schema and types of the schema and compile it with `tsc -b`.
+7. Write the schema and types of the schema and compile it with `tsc -b`. Look at the file `index.d.ts` which generates because of the key `declaration: true` in `tsconfig.json`.
 
 8. Publish it to npm:
     * Go to `npmjs.com` and create an account. username --> arka1313
     * Now come to terminal and run `npm login`.
-    * Go to `package.json` and change the name of your package from `common` to `@arka1313/blogsite-common`. Also change the `main` section from `index.js` to `dist/index.js`
+    * Go to `package.json` and change the name of your package from `common` to `@arka1313/blog-common`. Also change the `main` section from `index.js` to `dist/index.js`
     * Add a file `.npmignore` and add the folder `src` to it to ignore the folder from publishing.
     * Now publish it with: `npm publish --access public`
     * You can see that in your account and also can see that locally by run the command: `npm pack`.

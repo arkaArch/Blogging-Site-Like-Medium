@@ -4,6 +4,7 @@ import { verify } from 'hono/jwt';
 import { JWTPayload } from 'hono/utils/jwt/types';
 import { PrismaClient } from '@prisma/client/edge';
 import { withAccelerate } from '@prisma/extension-accelerate';
+import { Blog_Post_Schema, Blog_Update_Schema } from '@arka1313/blog-common';
 
 const app = new Hono<{
     Bindings: {
@@ -43,6 +44,11 @@ app.post("/", async (c) => {
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
 
+    const { success } = Blog_Post_Schema.safeParse(c.req.json());
+    if (!success) {
+        return c.json({ msg: "Invalid input" }, 401);
+    }
+
     const { title, content } = await c.req.json();
 
     try {
@@ -70,6 +76,11 @@ app.put("/", async (c) => {
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
+
+    const { success } = Blog_Update_Schema.safeParse(c.req.json());
+    if (!success) {
+        return c.json({ msg: "Invalid input" }, 401);
+    }
 
     const { id, title, content } = await c.req.json();
 

@@ -3,6 +3,7 @@ import { PrismaClient } from '@prisma/client/edge';
 import { withAccelerate } from '@prisma/extension-accelerate';
 import { sign } from 'hono/jwt'
 import { setCookie } from 'hono/cookie';
+import { Signup_Schema, Signin_Schema } from '@arka1313/blog-common';
 
 const app = new Hono<{
     Bindings: {
@@ -12,9 +13,15 @@ const app = new Hono<{
 }>();
 
 app.post("/signup", async (c) => {
+
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
+
+    const { success } = Signup_Schema.safeParse(c.req.json());
+    if (!success) {
+        return c.json({ msg: "Invalid input" }, 401);
+    }
 
     const { email, password } = await c.req.json();
 
@@ -42,6 +49,11 @@ app.post("/signin", async (c) => {
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
+
+    const { success } = Signin_Schema.safeParse(c.req.json());
+    if (!success) {
+        return c.json({ msg: "Invalid input" }, 401);
+    }
 
     const { email, password } = await c.req.json();
 
