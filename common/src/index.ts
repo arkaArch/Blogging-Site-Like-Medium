@@ -1,22 +1,22 @@
 import { z } from 'zod';
 
 export const Signup_Schema = z.object({
-    email: z.string().email(),
+    email: z.string().email().trim(),
     password: z.string().min(6),
 }).strict();
 
 export const Signin_Schema = z.object({
-    email: z.string().email(),
+    email: z.string().email().trim(),
     password: z.string().min(6),
 }).strict();
 
 export const Blog_Post_Schema = z.object({
-    title: z.string(),
+    title: z.string().trim(),
     content: z.string()
 }).strict();
 
 export const Blog_Update_Schema = z.object({
-    title: z.string(),
+    title: z.string().trim(),
     content: z.string()
 }).strict();
 

@@ -1,4 +1,6 @@
+import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { SignupInput } from "@arka1313/blog-common";
 import EmailInput from "../Components/EmailInput";
 import PasswordInput from "../Components/PasswordInput";
@@ -6,7 +8,7 @@ import Quote from "../Components/Quote";
 import CompanyLogo from "../Components/CompanyLogo";
 import AuthHeader from "../Components/AuthHeader";
 import TnC from "../Components/TermsAndCondition";
-
+import LoadingButton from "../Components/LoadingButton";
 
 const Signup = () => {
 
@@ -14,6 +16,25 @@ const Signup = () => {
         email: "",
         password: ""
     });
+
+    const [errorMsg, setErrorMessage] = useState("");
+
+    const [loadRequest, setLoadRequest] = useState(false);
+
+    const navigate = useNavigate();
+
+    const sendSignupRequest = async () => {
+        setLoadRequest(true);
+        try {
+            await axios.post("http://localhost:8787/api/v1/user/signup", signupInputs);
+            setLoadRequest(false);
+            navigate("/blogs");
+        } catch (e) {
+            setLoadRequest(false);
+            setErrorMessage("Please check your input");
+        }
+    }
+
 
     return <div className="grid grid-cols-1 lg:grid-cols-2">
 
@@ -26,22 +47,28 @@ const Signup = () => {
                 <EmailInput onChange={(e) => {
                     setSignupInputs({
                         ...signupInputs,
-                        email: e.target.value
-                    })
+                        email: e.target.value.trim()
+                    }),
+                        setErrorMessage("");
                 }} />
                 <PasswordInput onChange={(e) => {
                     setSignupInputs({
                         ...signupInputs,
                         password: e.target.value
-                    })
+                    }),
+                        setErrorMessage("");
                 }} />
+
+                <p className="text-sm text-left text-red-500">{errorMsg}</p>
 
                 <TnC />
 
-                <button className="flex-initial w-40 btn-primary">Sign up</button>
+                {loadRequest
+                    ? <LoadingButton />
+                    : <button onClick={sendSignupRequest} className="flex-initial w-40 btn-primary">Sign up</button>
+                }
             </div>
         </div>
-
 
         <Quote />
     </div>

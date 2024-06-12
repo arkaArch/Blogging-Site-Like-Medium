@@ -44,7 +44,7 @@ app.post("/", async (c) => {
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
 
-    const { success } = Blog_Post_Schema.safeParse(c.req.json());
+    const { success } = Blog_Post_Schema.safeParse(await c.req.json());
     if (!success) {
         return c.json({ msg: "Invalid input" }, 401);
     }
@@ -77,7 +77,7 @@ app.put("/", async (c) => {
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
 
-    const { success } = Blog_Update_Schema.safeParse(c.req.json());
+    const { success } = Blog_Update_Schema.safeParse(await c.req.json());
     if (!success) {
         return c.json({ msg: "Invalid input" }, 401);
     }

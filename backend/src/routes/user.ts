@@ -17,8 +17,8 @@ app.post("/signup", async (c) => {
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
-
-    const { success } = Signup_Schema.safeParse(c.req.json());
+    
+    const { success } = Signup_Schema.safeParse(await c.req.json());
     if (!success) {
         return c.json({ msg: "Invalid input" }, 401);
     }
@@ -49,8 +49,8 @@ app.post("/signin", async (c) => {
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
-
-    const { success } = Signin_Schema.safeParse(c.req.json());
+    
+    const { success } = Signin_Schema.safeParse(await c.req.json());
     if (!success) {
         return c.json({ msg: "Invalid input" }, 401);
     }
