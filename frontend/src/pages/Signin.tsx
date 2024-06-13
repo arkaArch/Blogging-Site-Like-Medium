@@ -14,7 +14,7 @@ const Signin = () => {
 
     const [signinInputs, setSignupInputs] = useState<SigninInput>({
         email: "",
-        password: "",
+        password: ""
     })
 
     const [errorMsg, setErrorMessage] = useState("");

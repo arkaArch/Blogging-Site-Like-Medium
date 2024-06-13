@@ -109,7 +109,20 @@ app.get("/bulk", async (c) => {
     }).$extends(withAccelerate());
 
     try {
-        const blogs = await prisma.blog.findMany();
+        const blogs = await prisma.blog.findMany({
+            select: {
+                author: {
+                    select: {
+                        email: true,
+                        profile_picture: true
+                    }
+                },
+
+                title: true,
+                content: true,
+                published_at: true
+            }
+        });
         return c.json({ blogs }, 200);
     } catch (e) {
         console.log(`Error: ${e}`);

@@ -6,7 +6,7 @@ import blogRoute from './routes/blog';
 const app = new Hono();
 
 app.use('/*', cors({
-    origin: 'http://localhost:5174',
+    origin: 'http://localhost:5173',
     credentials: true,
 }));
 

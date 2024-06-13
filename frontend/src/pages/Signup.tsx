@@ -4,17 +4,20 @@ import { useNavigate } from "react-router-dom";
 import { SignupInput } from "@arka1313/blog-common";
 import EmailInput from "../Components/EmailInput";
 import PasswordInput from "../Components/PasswordInput";
+import GenderInput from "../Components/GenderInput";
 import Quote from "../Components/Quote";
 import CompanyLogo from "../Components/CompanyLogo";
 import AuthHeader from "../Components/AuthHeader";
 import TnC from "../Components/TermsAndCondition";
 import LoadingButton from "../Components/LoadingButton";
 
+
 const Signup = () => {
 
     const [signupInputs, setSignupInputs] = useState<SignupInput>({
         email: "",
-        password: ""
+        password: "",
+        gender: ""
     });
 
     const [errorMsg, setErrorMessage] = useState("");
@@ -58,6 +61,13 @@ const Signup = () => {
                     }),
                         setErrorMessage("");
                 }} />
+
+                <GenderInput onChange={(e) => {
+                    setSignupInputs({
+                        ...signupInputs,
+                        gender: e.target.value
+                    })
+                }}/>
 
                 <p className="text-sm text-left text-red-500">{errorMsg}</p>
 

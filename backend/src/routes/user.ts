@@ -17,16 +17,27 @@ app.post("/signup", async (c) => {
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
-    
+
     const { success } = Signup_Schema.safeParse(await c.req.json());
     if (!success) {
         return c.json({ msg: "Invalid input" }, 401);
     }
 
-    const { email, password } = await c.req.json();
+    const { email, password, gender } = await c.req.json();
+
+    const male_profile_picture = `https://avatar.iran.liara.run/public/boy?username=${email}`
+    const female_profile_picture = `https://avatar.iran.liara.run/public/girl?username=${email}`
+
 
     try {
-        const new_user = await prisma.user.create({ data: { email, password } });
+        const new_user = await prisma.user.create({
+            data: {
+                email,
+                password,
+                gender,
+                profile_picture: gender === "male" ? male_profile_picture : female_profile_picture
+            }
+        });
         /* It is enough to handle duplicate user signup, since we set
         username constrain as @unique */
 
@@ -49,7 +60,7 @@ app.post("/signin", async (c) => {
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
-    
+
     const { success } = Signin_Schema.safeParse(await c.req.json());
     if (!success) {
         return c.json({ msg: "Invalid input" }, 401);
