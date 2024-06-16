@@ -10,6 +10,9 @@ import AuthHeader from "../Components/AuthHeader";
 import TnC from "../Components/TermsAndCondition";
 import LoadingButton from "../Components/LoadingButton";
 
+/* Set withCredentials to true for all requests */
+axios.defaults.withCredentials = true;
+
 const Signin = () => {
 
     const [signinInputs, setSignupInputs] = useState<SigninInput>({
@@ -38,7 +41,7 @@ const Signin = () => {
     return <div className="grid grid-cols-1 lg:grid-cols-2">
 
         <div className="h-screen flex flex-col gap-56 px-20 py-12">
-            <CompanyLogo />
+            <CompanyLogo size="big" />
 
             <div className="flex flex-col gap-8">
                 <AuthHeader type="signin" />
