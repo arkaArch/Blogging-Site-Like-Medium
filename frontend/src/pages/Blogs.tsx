@@ -26,6 +26,7 @@ const Blogs = () => {
             // Else react will complain about missing the key attribute
             avatar={<Avatar src={blog.author.profile_picture} />}
             username={blog.author.email}
+            id={blog.id}
             title={blog.title}
             content={blog.content}
             published_date={blog.published_at}

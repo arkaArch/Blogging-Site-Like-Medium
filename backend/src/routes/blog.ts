@@ -117,7 +117,7 @@ app.get("/bulk", async (c) => {
                         profile_picture: true
                     }
                 },
-
+                id: true,
                 title: true,
                 content: true,
                 published_at: true
@@ -137,9 +137,23 @@ app.get("/:id", async (c) => {
     }).$extends(withAccelerate());
 
     const { id } = c.req.param();
-    
+
     try {
-        const blog = await prisma.blog.findFirst({ where: { id } });
+        const blog = await prisma.blog.findFirst({
+            where: { id },
+            select: {
+                author: {
+                    select: {
+                        email: true,
+                        profile_picture: true
+                    }
+                },
+                id: true,
+                title: true,
+                content: true,
+                published_at: true
+            }
+        });
 
         if (!blog) {
             return c.json({ msg: "Blog is not found with this specified id" }, 411);

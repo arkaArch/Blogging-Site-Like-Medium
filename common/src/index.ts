@@ -12,13 +12,13 @@ export const Signin_Schema = z.object({
 }).strict();
 
 export const Blog_Post_Schema = z.object({
-    title: z.string().trim(),
-    content: z.string()
+    title: z.string().min(10).trim(),
+    content: z.string().min(100).trim()
 }).strict();
 
 export const Blog_Update_Schema = z.object({
-    title: z.string().trim(),
-    content: z.string()
+    title: z.string().min(10).trim(),
+    content: z.string().min(100).trim()
 }).strict();
 
 
