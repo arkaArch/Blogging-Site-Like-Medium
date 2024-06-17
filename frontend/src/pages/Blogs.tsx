@@ -12,14 +12,14 @@ const Blogs = () => {
 
     if (loading) {
         return <div>
-            <Navbar />
+            <Navbar create_blog_hidden={true} />
             {blogsIdentity.map((e, i) => <BlogsSkeleton key={blogsIdentity[i]} />)}
             <BlogsSkeleton />
         </div>
     }
 
     return <div>
-        <Navbar />
+        <Navbar create_blog_hidden={true} />
 
         {blogs.map((blog, i) => <BlogCard
             key={`blog ${i}`}
